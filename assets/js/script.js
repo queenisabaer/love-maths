@@ -25,8 +25,9 @@ document.addEventListener("DOMContentLoaded", function(){
             then use the get Attribute method and check the contents of data-type costum attribute
             */
             if (this.getAttribute("data-type") === "submit") {
-                //display an alert, if data-type equals submit
-                alert("You clicked Submit");
+                //First attemtp for practicing: display an alert, if data-type equals submit. alert("You clicked Submit");
+                // call the check answer function
+                checkAnswer();
             } else {
                 //if it was not submit, that was clicked, set the gameType variable 
                 //to the value of that attribute, e.g. addition, division or subtract
@@ -73,7 +74,28 @@ function runGame(gameType) {  //adds the question for the math equation, that is
     }
 }
 
+/**
+ * Checks the answer against the first element in
+ * the returned calculateCorrectAnswer array
+ */
+
 function checkAnswer() {
+    //read the user answer from the dom and return it as integer(parseInt), 
+    //target is the answer-box, because it is an input element get no.innerText, but .value
+    let userAnswer = parseInt(document.getElementById("answer-box").value);
+    //getting correct answer from the calculateCorrectAnswer function
+    let calculatedAnswer = calculateCorrectAnswer(); //this will return an array! because of return [operand1 + operand2, "addition"]
+    let isCorrect = userAnswer === calculatedAnswer[0];
+
+    //if isCorrect becomes true - can congratulate user, because they got it right
+    // isCorrect is shortcut for isCorrect === true
+    if (isCorrect) {
+        alert("Hey! You got it right :D");
+    } else { //tell user what correct answer was 
+        alert(`Awwwww... you answered ${userAnswer}. The correct answer was ${calculatedAnswer[0]}.`);
+    }
+    //run another game of the same type, use the second element of the calculateCorrectAnswer array
+    runGame(calculatedAnswer[1]);
 
 }
 
@@ -83,17 +105,17 @@ function checkAnswer() {
  */
 function calculateCorrectAnswer() {
     /*
-    reading values from DOM(getting them from the DOM) and storing them in variables. 
+    reading values from DOM(getting them from the DOM) and storing them in variables and calculate the correct answer
     by default JavaScript return data it gets from the data as a string. 
     Can't mathematical operate on strings, so a number is needed.
     use parseInt, which parses(analysieren) a string argument and returns an integer
     */
     //create variable called operand 1 that stores the inner text(the value) of element with id operand1
-    let operand1 = parseInt(document.getElementById('operand1').innerHtml);
+    let operand1 = parseInt(document.getElementById('operand1').innerText);
     //create variable called operand 2 that stores the inner text(the value) of element with id operand2
-    let operand2 = parseInt(document.getElementById('operand2').innerHtml);
+    let operand2 = parseInt(document.getElementById('operand2').innerText);
     //creates a variable called operator, that reads the text content of element with id operator
-    let operator = document.getElementById('operator').innerHtml;
+    let operator = document.getElementById('operator').innerText;
 
     /*
     calculate the correct answer based on gametype. 
