@@ -31,13 +31,16 @@ document.addEventListener("DOMContentLoaded", function(){
                 //if it was not submit, that was clicked, set the gameType variable 
                 //to the value of that attribute, e.g. addition, division or subtract
                 let gameType = this.getAttribute("data-type");
-                //add alert that displays the user the button, the user clicked
-                //attention: backquotes used to create template iteral
-                alert(`You clicked ${gameType}`);
+                //First attempt: add alert that displays the user the button, the user clicked. attention: backquotes used to create template iteral. alert(`You clicked ${gameType}`);
+                //final attempt: call the runGame function
+                runGame(gameType);
             }
 
         })
     }
+
+    //Create a default game (addition) that starts as soon as page is loaded 
+    runGame('addition')
 })
 
 // use a docstring to descripe the function, goes right above function
@@ -47,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function(){
  * The main game "loop", called when the script is first loaded
  * and after the user's answer has been processed
  */
-function runGame() {  //adds the question for the math equation, that is displayed
+function runGame(gameType) {  //adds the question for the math equation, that is displayed. gameType is Parameter/Argument, which game is played
     /*
     need two random numbers between 1 and 25, that are working as operands
     random numbers can be created by random method from Math object - create number between 0 and 1(not integer)
@@ -58,13 +61,54 @@ function runGame() {  //adds the question for the math equation, that is display
     let num1 = Math.floor(Math.random() * 25) + 1;
     let num2 = Math.floor(Math.random() * 25) + 1;
 
+    //check which game type is played and call the appropriate function to display question
+    if (gameType === 'addition'){
+        //if gametype is equal to addition, want to display addition question function
+        //pass the two random numbers
+        displayAdditionQuestion(num1, num2)
+    } else { //if gametype is unknown(error), alert for user and throw gametype, which was unknown to console for debugging
+        alert(`Unknown game type: ${gameType}`); 
+        throw `Unknown game type: ${gameType}. Aborting!`; //throw will stop game from running, errormessage will be displayed in console
+
+    }
 }
 
 function checkAnswer() {
 
 }
 
+/**
+ * Gets the opperands (the numbers)  and the operator (plus, minud etc)
+ * directly from the dom, and returns the correct answer.
+ */
 function calculateCorrectAnswer() {
+    /*
+    reading values from DOM(getting them from the DOM) and storing them in variables. 
+    by default JavaScript return data it gets from the data as a string. 
+    Can't mathematical operate on strings, so a number is needed.
+    use parseInt, which parses(analysieren) a string argument and returns an integer
+    */
+    //create variable called operand 1 that stores the inner text(the value) of element with id operand1
+    let operand1 = parseInt(document.getElementById('operand1').innerHtml);
+    //create variable called operand 2 that stores the inner text(the value) of element with id operand2
+    let operand2 = parseInt(document.getElementById('operand2').innerHtml);
+    //creates a variable called operator, that reads the text content of element with id operator
+    let operator = document.getElementById('operator').innerHtml;
+
+    /*
+    calculate the correct answer based on gametype. 
+    determining the game type(addition, substract, multiplication, division) by its operator (+ - * /)
+    */
+   if (operator === "+") {
+    //if operator equals the "+"-sign, it must be an addition game, 
+    //so it calculates the correct answer by returning the variables operand1 + operand2
+    //returns an array with 2 elements: first is the correct answer (sum), second is gametype "addition"
+    return [operand1 + operand2, "addition"]
+   } else {
+    alert(`Unimplemented operator ${operator}`);
+    throw `Unimplemented operator ${operator}.Aborting!`;
+   }
+
 
 }
 
@@ -76,7 +120,10 @@ function incrementWrongAnswer() {
 
 }
 
-function displayAdditionQuestion() {
+function displayAdditionQuestion(operand1, operand2) { //two arguments, this function will accept are the operands, we created
+    document.getElementById('operand1').innerText = operand1;
+    document.getElementById('operand2').innerText = operand2;
+    document.getElementById('operator').innerText = "+";
 
 }
 
