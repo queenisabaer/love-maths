@@ -40,7 +40,23 @@ document.addEventListener("DOMContentLoaded", function(){
     }
 })
 
-function runGame() {
+// use a docstring to descripe the function, goes right above function
+//if function is called later in JS the descriptopn appears in a pop-up, when hovered over
+
+/**
+ * The main game "loop", called when the script is first loaded
+ * and after the user's answer has been processed
+ */
+function runGame() {  //adds the question for the math equation, that is displayed
+    /*
+    need two random numbers between 1 and 25, that are working as operands
+    random numbers can be created by random method from Math object - create number between 0 and 1(not integer)
+    to get a number between 1 and 25, multiply the random number by 25 and
+    than use floor method from the math object to point number down to whole number
+    to avoid getting 0 as a random number(problem in division), add 1
+    */
+    let num1 = Math.floor(Math.random() * 25) + 1;
+    let num2 = Math.floor(Math.random() * 25) + 1;
 
 }
 
