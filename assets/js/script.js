@@ -66,7 +66,11 @@ function runGame(gameType) {  //adds the question for the math equation, that is
     if (gameType === 'addition'){
         //if gametype is equal to addition, want to display addition question function
         //pass the two random numbers
-        displayAdditionQuestion(num1, num2)
+        displayAdditionQuestion(num1, num2);
+    } else if (gameType === 'subtract')  {
+        displaySubtractQuestion(num1, num2);
+    } else if (gameType === 'multiply')  {
+        displayMultiplyQuestion(num1, num2);
     } else { //if gametype is unknown(error), alert for user and throw gametype, which was unknown to console for debugging
         alert(`Unknown game type: ${gameType}`); 
         throw `Unknown game type: ${gameType}. Aborting!`; //throw will stop game from running, errormessage will be displayed in console
@@ -121,13 +125,17 @@ function calculateCorrectAnswer() {
 
     /*
     calculate the correct answer based on gametype. 
-    determining the game type(addition, substract, multiplication, division) by its operator (+ - * /)
+    determining the game type(addition, subtract, multiplication, division) by its operator (+ - * /)
     */
    if (operator === "+") {
     //if operator equals the "+"-sign, it must be an addition game, 
     //so it calculates the correct answer by returning the variables operand1 + operand2
     //returns an array with 2 elements: first is the correct answer (sum), second is gametype "addition"
     return [operand1 + operand2, "addition"]
+   } else if (operator === "-") {
+    return [operand1 - operand2, "subtract"]
+   } else if (operator === "x") {
+    return [operand1 * operand2, "multiply"]
    } else {
     alert(`Unimplemented operator ${operator}`);
     throw `Unimplemented operator ${operator}.Aborting!`;
@@ -165,12 +173,16 @@ function displayAdditionQuestion(operand1, operand2) { //two arguments, this fun
 
 }
 
-function displaySubtractQuestion() {
-
+function displaySubtractQuestion(operand1, operand2) {
+    document.getElementById('operand1').innerText = operand1;
+    document.getElementById('operand2').innerText = operand2;
+    document.getElementById('operator').innerText = "-";
 }
 
-function displayMultiplyQuestion() {
-
+function displayMultiplyQuestion(operand1, operand2) {
+    document.getElementById('operand1').innerText = operand1;
+    document.getElementById('operand2').innerText = operand2;
+    document.getElementById('operator').innerText = "x";
 }
 
 function displayDivisionQuestion() {
