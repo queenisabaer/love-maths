@@ -40,6 +40,15 @@ document.addEventListener("DOMContentLoaded", function(){
         })
     }
 
+    //UX: submit with enter key
+    //add eventListener to answer box, when key is pressed down, then call a function with an event object
+    document.getElementById('answer-box').addEventListener("keydown", function(event){
+        //check a property of that event object, which is the key property
+        if (event.key === "Enter") {
+            checkAnswer();     // if enter key was pressend, then the checkAnswer function runs
+        }
+    })
+
     //Create a default game (addition) that starts as soon as page is loaded 
     runGame('addition')
 })
@@ -52,6 +61,12 @@ document.addEventListener("DOMContentLoaded", function(){
  * and after the user's answer has been processed
  */
 function runGame(gameType) {  //adds the question for the math equation, that is displayed. gameType is Parameter/Argument, which game is played
+    //UX: sets the value(input element) of the answerbox to an empty string, so every time the runGame function is called, the answer box will be empty
+    document.getElementById('answer-box').value = ""; 
+
+    //UX: set cursor in the answer box as soon as page is loaded, so don't have to click on it again
+    document.getElementById('answer-box').focus();
+
     /*
     need two random numbers between 1 and 25, that are working as operands
     random numbers can be created by random method from Math object - create number between 0 and 1(not integer)
