@@ -91,8 +91,10 @@ function checkAnswer() {
     // isCorrect is shortcut for isCorrect === true
     if (isCorrect) {
         alert("Hey! You got it right :D");
+        incrementScore();
     } else { //tell user what correct answer was 
         alert(`Awwwww... you answered ${userAnswer}. The correct answer was ${calculatedAnswer[0]}.`);
+        incrementWrongAnswer();
     }
     //run another game of the same type, use the second element of the calculateCorrectAnswer array
     runGame(calculatedAnswer[1]);
@@ -134,11 +136,25 @@ function calculateCorrectAnswer() {
 
 }
 
+/**
+ * Gets the current score from the DOM and increments it by 1
+ */
 function incrementScore() {
+    //read the current score from the DOM, retrieving it from the element with id "score"
+    let oldScore = parseInt(document.getElementById('score').innerText);
+    //increase the score(attention: you need again the inner text!) by adding one
+    document.getElementById('score').innerText = ++oldScore;
 
 }
 
+/**
+ * Gets the current score of incorrect answers and increases them
+ */
 function incrementWrongAnswer() {
+    //read the current score from the DOM, retrieving it from the element with id "incorrect"
+    let oldScore = parseInt(document.getElementById("incorrect").innerText);
+    //increase the score by adding one
+    document.getElementById("incorrect").innerText = ++oldScore;
 
 }
 
