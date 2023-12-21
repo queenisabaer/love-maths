@@ -174,8 +174,10 @@ function displayAdditionQuestion(operand1, operand2) { //two arguments, this fun
 }
 
 function displaySubtractQuestion(operand1, operand2) {
-    document.getElementById('operand1').innerText = operand1;
-    document.getElementById('operand2').innerText = operand2;
+    //checking if operand1 is larger than operand2(?), than display operand1, if not (:) display operand2
+    document.getElementById('operand1').innerText = operand1 > operand2 ? operand1 : operand2;
+    //checking if operand1 is larger than operand2(?), than display operand 2, if not(:) display operand1
+    document.getElementById('operand2').innerText = operand1 > operand2 ? operand2 : operand1;
     document.getElementById('operator').innerText = "-";
 }
 
